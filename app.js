@@ -1,3 +1,5 @@
+var counter = require('./count');
+
 // in node the global object is not just the window, it includes native methods 
 // some of these methods include console, setTimeout, setInterval, require, exports, etc
 
@@ -28,4 +30,4 @@ console.log(__dirname);
 // states current file path
 console.log(__filename);
 
-//require, exports
+console.log(counter(['one', 'two', 'three']))
