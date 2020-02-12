@@ -1,33 +1,21 @@
-var counter = require('./count');
+var fs = require('fs');
+// common to set variable name to module name
+// fs allows reading and writing of files
 
-// in node the global object is not just the window, it includes native methods 
-// some of these methods include console, setTimeout, setInterval, require, exports, etc
+// synchronous method, reads file before it can move on to the rest of the code
+// pass which file it should read and encode type
+var readMe = fs.readFileSync('readMe.txt', 'utf8');
 
-console.log('hello via node')
+// write a file:
+// pass file destination name and content of file
+fs.writeFileSync('writeMe.txt', readMe)
 
-setTimeout(function() {
-    console.log('2 seconds have passed');
-}, 2000);
+// asynchronous versions:
+// third parameter of a function accepting an error and the data
+// async writeFile requires error callback function
+fs.readFile('readMe.txt', 'utf8', function(err, data){
+    fs.writeFile('writeMe.txt', data, (err) => {
+        if(err) throw err;
+    })
+});
 
-var time = 0
-
-setInterval(function(){
-    time += 2;
-    console.log(time + ' seconds have passed')
-}, 2000)
-
-var timer = setInterval(function() {
-    time += 2;
-    console.log(time + ' seconds have passed');
-    if (time > 5) {
-        clearInterval(timer);
-    }
-}, 2000);
-
-// states current directory
-console.log(__dirname);
-
-// states current file path
-console.log(__filename);
-
-console.log(counter(['one', 'two', 'three']))
